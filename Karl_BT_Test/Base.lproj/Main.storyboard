@@ -1,25 +1,230 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="J8b-tV-JJV">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Merchant Login-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m1o-PW-p1m">
+                                <rect key="frame" x="77" y="251" width="167" height="52"/>
+                                <color key="backgroundColor" red="0.79232279067545319" green="0.51489476719604466" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnLogin:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="3PX-E4-Kwt"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Merchant ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2dp-XE-Gra">
+                                <rect key="frame" x="16" y="193" width="288" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="b5E-9Y-egh">
+                                <rect key="frame" x="150" y="324" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Merchant Login" id="SJL-DO-KTh">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="ZVb-G1-ZQT">
+                            <connections>
+                                <segue destination="Uxg-8I-E23" kind="modal" identifier="postLogin" id="G3w-g2-oHX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="nextButton" destination="ZVb-G1-ZQT" id="VHM-MB-3yM"/>
+                        <outlet property="progLogin" destination="b5E-9Y-egh" id="uwt-Ws-UPc"/>
+                        <outlet property="txtMerchantID" destination="2dp-XE-Gra" id="Qjl-5g-7QV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-1035" y="1243"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PjE-Bc-kyj">
+            <objects>
+                <navigationController id="J8b-tV-JJV" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SKd-bk-jMd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="WEN-aG-L9D"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Gn-Aq-oOU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1543" y="1243"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="D4k-oq-blb">
+            <objects>
+                <tabBarController id="Uxg-8I-E23" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="IWf-4z-fgU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="71T-Q7-UIJ" kind="relationship" relationship="viewControllers" id="gtX-qj-2HD"/>
+                        <segue destination="ReK-4h-lhQ" kind="relationship" relationship="viewControllers" id="rhO-Iw-C5K"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JM2-uD-wBc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-524" y="1243"/>
+        </scene>
+        <!--Payment View Controller-->
+        <scene sceneID="Fzy-Es-Nch">
+            <objects>
+                <viewController id="w6A-E2-Rmn" customClass="PaymentViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wcn-Iq-myf"/>
+                        <viewControllerLayoutGuide type="bottom" id="5aV-2W-ROe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="aFH-jb-Dfq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOA-5L-37R">
+                                <rect key="frame" x="88" y="406" width="144" height="50"/>
+                                <color key="backgroundColor" red="0.79232279067545319" green="0.51489476719604466" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Pay Now">
+                                    <color key="titleColor" red="0.9773787830219387" green="1" blue="0.98711625669947767" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressPayButton:" destination="w6A-E2-Rmn" eventType="touchUpInside" id="Zin-Rj-YnA"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qoe-37-0xO">
+                                <rect key="frame" x="85" y="88" width="150" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B1r-Ed-1VL">
+                                <rect key="frame" x="74" y="215" width="172" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bZm-Jn-Hjg">
+                                <rect key="frame" x="74" y="264" width="172" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Customer ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B1q-pE-SSY">
+                                <rect key="frame" x="74" y="316" width="172" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Save to Vault" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X7A-Cz-HD4">
+                                <rect key="frame" x="74" y="166" width="101" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6JW-z5-w0B">
+                                <rect key="frame" x="197" y="161" width="51" height="31"/>
+                                <connections>
+                                    <action selector="toggleSwitch:" destination="w6A-E2-Rmn" eventType="valueChanged" id="QaC-YC-CK3"/>
+                                </connections>
+                            </switch>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="WzW-Vp-dc4"/>
+                    <connections>
+                        <outlet property="switchVault" destination="6JW-z5-w0B" id="qJu-8l-WT7"/>
+                        <outlet property="txtAmount" destination="Qoe-37-0xO" id="fDK-Hx-qvN"/>
+                        <outlet property="txtCustomerId" destination="B1q-pE-SSY" id="SpX-rM-11W"/>
+                        <outlet property="txtFirstName" destination="B1r-Ed-1VL" id="TR5-Fo-mHx"/>
+                        <outlet property="txtLastName" destination="bZm-Jn-Hjg" id="23u-Nn-qLg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q28-Al-Sth" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="636" y="1036"/>
+        </scene>
+        <!--Pay-->
+        <scene sceneID="u8Z-Nj-B55">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="71T-Q7-UIJ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Pay" image="dollar-sign.png" id="zew-ZM-1PV"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UFQ-W8-vZK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="w6A-E2-Rmn" kind="relationship" relationship="rootViewController" id="oCE-yN-r4W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qBE-0K-rI0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="86" y="1036"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Cyn-xo-Xk5">
+            <objects>
+                <viewController id="S80-I5-15P" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7rq-vX-hav"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZGQ-Zg-hgH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OS1-rV-xCD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="9RE-Hw-5so"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Mf-E6-R3i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="636" y="1772"/>
+        </scene>
+        <!--TODO-->
+        <scene sceneID="h4h-0D-D3S">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ReK-4h-lhQ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="TODO" image="lock.png" id="MXK-xJ-fgS"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7yO-eL-row">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="S80-I5-15P" kind="relationship" relationship="rootViewController" id="4Bi-z6-vQE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MFt-Yw-R9C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="86" y="1772"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="dollar-sign.png" width="30" height="30"/>
+        <image name="lock.png" width="30" height="30"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>
