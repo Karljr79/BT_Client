@@ -7,6 +7,7 @@
 //
 
 #import "PaymentViewController.h"
+#import "Constants.h"
 #import <Braintree/Braintree.h>
 #import <AFNetworking/AFNetworking.h>
 
@@ -27,7 +28,7 @@
     //retrieve Client Token from the Server
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager GET:@"https://karlpartner-karljr791.c9.io/client_token"
+    [manager GET:URL_CLIENT
       parameters:@""
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              // Setup braintree with responseObject[@"client_token"]
@@ -89,12 +90,34 @@
 }
 
 - (void)postNonceToServer:(NSString *)paymentMethodNonce {
+    NSString *vaultStatus = @"no";
+    NSDictionary *params = nil;
+    
+    //will we be saving this customer to the vault?
+    if([self.switchVault isOn])
+    {
+        vaultStatus = @"yes";
+        //TODO Add validation here
+        params = @{@"amount": self.txtAmount.text,
+                   @"vault" : vaultStatus,
+                   @"payment-method-nonce" : paymentMethodNonce,
+                   @"cust_first_name" : self.txtFirstName,
+                   @"cust_last_name" : self.txtLastName,
+                   @"cust_id" : self.txtCustomerId };
+    }
+    else
+    {
+        vaultStatus = @"no";
+        //TODO Add validation here
+        params = @{@"amount": self.txtAmount.text,
+                   @"vault" : vaultStatus,
+                   @"payment-method-nonce" : paymentMethodNonce};
+    }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager POST:@"https://karlpartner-karljr791.c9.io/payment"
-       parameters:@{ @"amount": self.txtAmount.text,
-                     @"vault": @"no",
-                     @"payment-method-nonce": paymentMethodNonce}
+    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [manager POST:URL_PURCHASE
+       parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
               [self showAlertWithTitle:@"Payment" andMessage:@"Payment Successful"];
           }

@@ -7,6 +7,7 @@
 //
 
 #import "LoginViewController.h"
+#import "Constants.h"
 #import <AFNetworking/AFNetworking.h>
 
 @implementation LoginViewController
@@ -28,7 +29,7 @@
     //This is a BAD example of a login, but lets pretend that this is secure :)
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager GET:@"https://karlpartner-karljr791.c9.io/login"
+    [manager GET:URL_LOGIN
       parameters:params
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"Success");
