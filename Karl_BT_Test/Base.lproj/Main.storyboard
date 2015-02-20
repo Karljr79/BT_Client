@@ -154,11 +154,31 @@
                         <outlet property="txtCustomerId" destination="B1q-pE-SSY" id="SpX-rM-11W"/>
                         <outlet property="txtFirstName" destination="B1r-Ed-1VL" id="TR5-Fo-mHx"/>
                         <outlet property="txtLastName" destination="bZm-Jn-Hjg" id="23u-Nn-qLg"/>
+                        <segue destination="e8L-Io-WY2" kind="push" identifier="postTransaction" id="PVW-cf-Yi3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q28-Al-Sth" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="636" y="1036"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Thf-hD-Rw2">
+            <objects>
+                <viewController id="c4W-DQ-yE6" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6Vj-WH-IU0"/>
+                        <viewControllerLayoutGuide type="bottom" id="Kx8-zS-jmX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0cJ-8e-ZBf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mgG-Qu-d1b"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lrq-X0-zOm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1729" y="1036"/>
         </scene>
         <!--Pay-->
         <scene sceneID="u8Z-Nj-B55">
@@ -216,6 +236,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MFt-Yw-R9C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="86" y="1772"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Y1a-AP-sl2">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e8L-Io-WY2" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="8pv-qR-kVN"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zih-kS-P5k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="c4W-DQ-yE6" kind="relationship" relationship="rootViewController" id="Cbf-MR-l2i"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Meh-pW-TjH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1185" y="1036"/>
         </scene>
     </scenes>
     <resources>

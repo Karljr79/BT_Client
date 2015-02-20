@@ -25,21 +25,13 @@
     [self.switchVault setOn:NO];
     [self hideCustomerText];
     
-    //retrieve Client Token from the Server
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager GET:URL_CLIENT
-      parameters:@""
-         success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             // Setup braintree with responseObject[@"client_token"]
-             self.clientToken = responseObject[@"client_token"];
-             NSLog(@"Success");
-             NSLog(@"Client Token: %@", self.clientToken);
-         }
-         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             // show alert
-             [self showAlertWithTitle:@"Client Token" andMessage:@"Failed to Retrieve Client Token"];
-         }];
+    //[self getNewClientToken];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    [self getNewClientToken];
 }
 
 - (IBAction)toggleSwitch:(id)sender {
@@ -116,6 +108,7 @@
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     [manager POST:URL_PURCHASE
        parameters:params
           success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -124,6 +117,24 @@
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               // Handle failure communicating with your server
           }];
+}
+
+- (void)getNewClientToken {
+    //retrieve Client Token from the Server
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    [manager GET:URL_CLIENT
+      parameters:@""
+         success:^(AFHTTPRequestOperation *operation, id responseObject) {
+             // Setup braintree with responseObject[@"client_token"]
+             self.clientToken = responseObject[@"client_token"];
+             NSLog(@"Success");
+             NSLog(@"Client Token: %@", self.clientToken);
+         }
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             // show alert
+             [self showAlertWithTitle:@"Client Token" andMessage:@"Failed to Retrieve Client Token"];
+         }];
 }
 
 - (void)hideCustomerText {
