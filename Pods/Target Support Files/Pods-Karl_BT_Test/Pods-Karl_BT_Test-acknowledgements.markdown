@@ -26,7 +26,7 @@ THE SOFTWARE.
 
 ## Braintree
 
-Copyright (c) 2014 Braintree, a division of PayPal, Inc.
+Copyright (c) 2015 Braintree, a division of PayPal, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

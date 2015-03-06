@@ -34,8 +34,11 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="b5E-9Y-egh">
                                 <rect key="frame" x="150" y="324" width="20" height="20"/>
                             </activityIndicatorView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="BT_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="VYL-BH-omj">
+                                <rect key="frame" x="-8" y="67" width="336" height="118"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.83039565640000002" green="0.84594228319999998" blue="0.84220967920000001" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Merchant Login" id="SJL-DO-KTh">
                         <barButtonItem key="rightBarButtonItem" title="Next" id="ZVb-G1-ZQT">
@@ -101,17 +104,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOA-5L-37R">
-                                <rect key="frame" x="88" y="406" width="144" height="50"/>
-                                <color key="backgroundColor" red="0.79232279067545319" green="0.51489476719604466" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Pay Now">
-                                    <color key="titleColor" red="0.9773787830219387" green="1" blue="0.98711625669947767" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="pressPayButton:" destination="w6A-E2-Rmn" eventType="touchUpInside" id="Zin-Rj-YnA"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amount" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qoe-37-0xO">
                                 <rect key="frame" x="85" y="88" width="150" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -123,12 +115,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bZm-Jn-Hjg">
-                                <rect key="frame" x="74" y="264" width="172" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Customer ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B1q-pE-SSY">
-                                <rect key="frame" x="74" y="316" width="172" height="30"/>
+                                <rect key="frame" x="74" y="258" width="172" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
@@ -144,11 +131,37 @@
                                     <action selector="toggleSwitch:" destination="w6A-E2-Rmn" eventType="valueChanged" id="QaC-YC-CK3"/>
                                 </connections>
                             </switch>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uOA-5L-37R">
+                                <rect key="frame" x="62" y="376" width="196" height="50"/>
+                                <color key="backgroundColor" red="0.79232279067545319" green="0.51489476719604466" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Pay (Drop In UI)">
+                                    <color key="titleColor" red="0.9773787830219387" green="1" blue="0.98711625669947767" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressPayButton:" destination="w6A-E2-Rmn" eventType="touchUpInside" id="Zin-Rj-YnA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gg-xg-YNx">
+                                <rect key="frame" x="62" y="441" width="196" height="59"/>
+                                <state key="normal" image="ApplePayBTN_59pt__black_textLogo_.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressApplePay:" destination="w6A-E2-Rmn" eventType="touchUpInside" id="ip6-Pu-2wE"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Customer ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B1q-pE-SSY">
+                                <rect key="frame" x="74" y="302" width="172" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.83039565640000002" green="0.84594228319999998" blue="0.84220967920000001" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="WzW-Vp-dc4"/>
                     <connections>
+                        <outlet property="btnApplePay" destination="4gg-xg-YNx" id="ebX-Nz-XIO"/>
                         <outlet property="switchVault" destination="6JW-z5-w0B" id="qJu-8l-WT7"/>
                         <outlet property="txtAmount" destination="Qoe-37-0xO" id="fDK-Hx-qvN"/>
                         <outlet property="txtCustomerId" destination="B1q-pE-SSY" id="SpX-rM-11W"/>
@@ -210,7 +223,7 @@
                     <view key="view" contentMode="scaleToFill" id="OS1-rV-xCD">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.83039565640000002" green="0.84594228319999998" blue="0.84220967920000001" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="9RE-Hw-5so"/>
                 </viewController>
@@ -258,6 +271,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ApplePayBTN_59pt__black_textLogo_.png" width="194" height="59"/>
+        <image name="BT_logo.png" width="336" height="118"/>
         <image name="dollar-sign.png" width="30" height="30"/>
         <image name="lock.png" width="30" height="30"/>
     </resources>

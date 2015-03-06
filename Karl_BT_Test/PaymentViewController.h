@@ -9,17 +9,22 @@
 #import <UIKit/UIKit.h>
 #import <Braintree/Braintree.h>
 
-@interface PaymentViewController : UIViewController <BTDropInViewControllerDelegate>
+@interface PaymentViewController : UIViewController <BTDropInViewControllerDelegate, BTPaymentMethodCreationDelegate>
+
+- (instancetype)initWithBraintree:(Braintree *)braintree completion:(void (^)(NSString *nonce))completion;
 //actions
 - (IBAction)toggleSwitch:(id)sender;
 - (IBAction)pressPayButton:(id)sender;
+- (IBAction)pressApplePay:(id)sender;
 //properties
 @property NSString *clientToken;
 @property NSString *nonce;
+@property BTPaymentProvider* provider;
 @property (weak, nonatomic) IBOutlet UISwitch *switchVault;
 @property (weak, nonatomic) IBOutlet UITextField *txtFirstName;
 @property (weak, nonatomic) IBOutlet UITextField *txtLastName;
 @property (weak, nonatomic) IBOutlet UITextField *txtCustomerId;
 @property (weak, nonatomic) IBOutlet UITextField *txtAmount;
+@property (weak, nonatomic) IBOutlet UIButton *btnApplePay;
 
 @end

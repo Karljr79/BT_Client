@@ -12,14 +12,35 @@
 #import <AFNetworking/AFNetworking.h>
 
 
-@interface PaymentViewController ()
+@interface PaymentViewController () <PKPaymentAuthorizationViewControllerDelegate>
+
+@property (nonatomic, strong) Braintree *braintree;
+@property (nonatomic, strong) BTApplePayPaymentMethod *applePayPaymentMethod;
+@property (nonatomic, copy) void (^completionBlock)(NSString *nonce);
 
 @end
 
 @implementation PaymentViewController
 
+- (instancetype)initWithBraintree:(Braintree *)braintree completion:(void (^)(NSString *nonce))completion {
+    self = [super init];
+    if (self) {
+        self.braintree = braintree;
+        self.completionBlock = completion;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (![PKPaymentAuthorizationViewController class]) {
+        self.btnApplePay.hidden = YES;
+    }
+    else {
+        self.btnApplePay.hidden = NO;
+    }
+
+    Braintree *braintree = [Braintree braintreeWithClientToken:self.clientToken];
     
     //set initial state of switch and text fields
     [self.switchVault setOn:NO];
@@ -49,8 +70,43 @@
     [self handlePayment];
 }
 
+- (NSArray *)supportedNetworks {
+    return @[ PKPaymentNetworkAmex ];
+}
+
+- (IBAction)pressApplePay:(id)sender {
+    [self.provider createPaymentMethod:BTPaymentProviderTypeApplePay];
+    
+    PKPaymentRequest *request = [[PKPaymentRequest alloc] init];
+    request.merchantIdentifier = @"merchant.com.braintreepayments.dev-dcopeland";
+    request.paymentSummaryItems = @[ [PKPaymentSummaryItem summaryItemWithLabel:@"An Item"
+                                                                         amount:[NSDecimalNumber decimalNumberWithString:@"0.5"]],
+                                     [PKPaymentSummaryItem summaryItemWithLabel:@"An add-on"
+                                                                         amount:[NSDecimalNumber decimalNumberWithString:@"1.0"]] ];
+    request.countryCode = @"US";
+    request.currencyCode = @"USD";
+    request.applicationData = [@"Some random application data" dataUsingEncoding:NSUTF8StringEncoding];
+    request.merchantCapabilities = PKMerchantCapability3DS;
+    request.supportedNetworks = self.supportedNetworks;
+    
+    PKPaymentAuthorizationViewController *vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
+    vc.delegate = self;
+    
+    if (vc) {
+        [self presentViewController:vc animated:YES completion:nil];
+    } else {
+        NSLog(@"Error creating Apple Pay payment");
+    }
+
+}
+
 - (void)handlePayment {
     Braintree *braintree = [Braintree braintreeWithClientToken:self.clientToken];
+    self.provider = [braintree paymentProviderWithDelegate:self];
+    
+    self.provider.paymentSummaryItems = @[
+                                          [PKPaymentSummaryItem summaryItemWithLabel:@"COMPANY NAME" amount:[NSDecimalNumber decimalNumberWithString:@"1"]]
+                                          ];
     
     //create DropIn View Controller
     BTDropInViewController *dropInViewController = [braintree dropInViewControllerWithDelegate:self];
@@ -71,6 +127,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+# pragma mark Drop In Methods
+
 - (void)dropInViewController:(__unused BTDropInViewController *)viewController didSucceedWithPaymentMethod:(BTPaymentMethod *)paymentMethod {
     self.nonce = paymentMethod.nonce;
     [self postNonceToServer:self.nonce]; // Send payment method nonce to your server
@@ -81,6 +139,29 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+# pragma mark BT Payment Method Creator Delegate
+
+- (void)paymentMethodCreator:(id)sender requestsPresentationOfViewController:(UIViewController *)viewController {
+    [self presentViewController:viewController animated:YES completion:nil];
+}
+
+- (void)paymentMethodCreator:(id)sender requestsDismissalOfViewController:(UIViewController *)viewController {
+    [viewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)paymentMethodCreator:(id)sender didCreatePaymentMethod:(BTPaymentMethod *)paymentMethod {
+    if ([paymentMethod isKindOfClass:[BTApplePayPaymentMethod class]]) {
+        BTApplePayPaymentMethod *applePayPaymentMethod = (BTApplePayPaymentMethod *)paymentMethod;
+        [self postNonceToServer:applePayPaymentMethod.nonce];
+        // Send payment information to your server:
+        //   - applePayPaymentMethod.nonce
+        //   - applePayPaymentMethod.shippingAddress
+        //   - applePayPaymentMethod.billingAddress
+        //   - applePayPaymentMethod.shippingMethod
+        // Clean up any UI now that the payment is complete
+    }
+}
+
 - (void)postNonceToServer:(NSString *)paymentMethodNonce {
     NSString *vaultStatus = @"no";
     NSDictionary *params = nil;
@@ -89,7 +170,7 @@
     if([self.switchVault isOn])
     {
         vaultStatus = @"yes";
-        //TODO Add validation here
+        //TODO Add validation here?
         params = @{@"amount": self.txtAmount.text,
                    @"vault" : vaultStatus,
                    @"payment-method-nonce" : paymentMethodNonce,
@@ -100,7 +181,7 @@
     else
     {
         vaultStatus = @"no";
-        //TODO Add validation here
+        //TODO Add validation here?
         params = @{@"amount": self.txtAmount.text,
                    @"vault" : vaultStatus,
                    @"payment-method-nonce" : paymentMethodNonce};
@@ -128,7 +209,7 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              // Setup braintree with responseObject[@"client_token"]
              self.clientToken = responseObject[@"client_token"];
-             NSLog(@"Success");
+             NSLog(@"Successfully retrieved client token");
              NSLog(@"Client Token: %@", self.clientToken);
          }
          failure:^(AFHTTPRequestOperation *operation, NSError *error) {

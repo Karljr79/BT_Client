@@ -32,7 +32,7 @@
     [manager GET:URL_LOGIN
       parameters:params
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-             NSLog(@"Success");
+             NSLog(@"Successfully logged in to merchant ID: %@", self.txtMerchantID.text);
              //enable next button
              [[self.navigationItem rightBarButtonItem] setEnabled:YES];
              //transition to purchase screens

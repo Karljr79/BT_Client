@@ -8,13 +8,19 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setThemedPlaceholder:BTUILocalizedString(POSTAL_CODE_PLACEHOLDER)];
+        self.textField.accessibilityLabel = BTUILocalizedString(POSTAL_CODE_PLACEHOLDER);
         self.nonDigitsSupported = NO;
+        self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+        self.textField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+        self.textField.returnKeyType = UIReturnKeyDone;
     }
     return self;
 }
 
 - (void)setNonDigitsSupported:(BOOL)nonDigitsSupported {
     _nonDigitsSupported = nonDigitsSupported;
+    self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+    self.textField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
     self.textField.keyboardType = _nonDigitsSupported ? UIKeyboardTypeNumbersAndPunctuation : UIKeyboardTypeNumberPad;
 }
 

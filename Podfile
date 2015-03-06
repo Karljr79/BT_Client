@@ -4,5 +4,6 @@ platform :ios, '7.0'
 target 'Karl_BT_Test' do
 pod 'Braintree'
 pod 'AFNetworking'
+pod 'Braintree/Apple-Pay'
 end
 
