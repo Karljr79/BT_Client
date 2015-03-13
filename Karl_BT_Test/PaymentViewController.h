@@ -11,7 +11,6 @@
 
 @interface PaymentViewController : UIViewController <BTDropInViewControllerDelegate, BTPaymentMethodCreationDelegate>
 
-- (instancetype)initWithBraintree:(Braintree *)braintree completion:(void (^)(NSString *nonce))completion;
 //actions
 - (IBAction)toggleSwitch:(id)sender;
 - (IBAction)pressPayButton:(id)sender;
@@ -19,7 +18,6 @@
 //properties
 @property NSString *clientToken;
 @property NSString *nonce;
-@property BTPaymentProvider* provider;
 @property (weak, nonatomic) IBOutlet UISwitch *switchVault;
 @property (weak, nonatomic) IBOutlet UITextField *txtFirstName;
 @property (weak, nonatomic) IBOutlet UITextField *txtLastName;
