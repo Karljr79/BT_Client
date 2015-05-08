@@ -47,14 +47,19 @@ PODS:
     - Braintree/API
   - Braintree/Venmo (3.7.0):
     - Braintree/API
+  - Mixpanel (2.7.3):
+    - Mixpanel/MPCategoryHelpers (= 2.7.3)
+  - Mixpanel/MPCategoryHelpers (2.7.3)
 
 DEPENDENCIES:
   - AFNetworking
   - Braintree
   - Braintree/Apple-Pay
+  - Mixpanel
 
 SPEC CHECKSUMS:
-  AFNetworking: 8bee59492a6ff15d69130efa4d0dc67e0094a52a
-  Braintree: f65f0bb9c040ba91f66a63cf4190296d6530c276
+  AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
+  Braintree: 5e722c7359ca1c4a2f46562e27a577aeb364b795
+  Mixpanel: 1d387d76800e07e953958c62c97fea27f13632dd
 
 COCOAPODS: 0.35.0

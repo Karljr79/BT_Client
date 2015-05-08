@@ -10,15 +10,15 @@
 #import "Constants.h"
 #import <Braintree/Braintree.h>
 #import <AFNetworking/AFNetworking.h>
+#import "Mixpanel.h"
 
 
-@interface PaymentViewController () <PKPaymentAuthorizationViewControllerDelegate>
+@interface PaymentViewController () <BTPaymentMethodCreationDelegate>
 
 @property (nonatomic, strong) Braintree *braintree;
-@property (nonatomic, strong) BTApplePayPaymentMethod *applePayPaymentMethod;
-@property (nonatomic, copy) void (^completionBlock)(NSString *nonce);
-
 @property (nonatomic, strong) BTPaymentProvider *provider;
+@property (nonatomic, copy) void (^completionBlock)(NSString *nonce);
+@property (nonatomic, strong) NSNumberFormatter *currencyFormatter;
 
 @end
 
@@ -27,7 +27,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (![PKPaymentAuthorizationViewController class]) {
+    
+    Braintree *braintree = [Braintree braintreeWithClientToken:self.clientToken];
+    
+    self.provider = [braintree paymentProviderWithDelegate:self];
+    
+    
+    if ([self.provider canCreatePaymentMethodWithProviderType:BTPaymentProviderTypeApplePay]) {
         self.btnApplePay.hidden = YES;
     }
     else {
@@ -37,16 +43,17 @@
     //set initial state of switch and text fields
     [self.switchVault setOn:NO];
     [self hideCustomerText];
-    
-    //[self getNewClientToken];
 }
+
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
+    //get a fresh client token
     [self getNewClientToken];
 }
 
+//handle the toggle for the vault
 - (IBAction)toggleSwitch:(id)sender {
     if([self.switchVault isOn])
     {
@@ -68,27 +75,16 @@
 
 - (IBAction)pressApplePay:(id)sender {
     
-    self.braintree = [Braintree braintreeWithClientToken:self.clientToken];
+    Braintree *braintree = [Braintree braintreeWithClientToken:self.clientToken];
     
-    PKPaymentRequest *request = [[PKPaymentRequest alloc] init];
-    request.merchantIdentifier = @"merchant.com.karlh";
-    request.paymentSummaryItems = @[ [PKPaymentSummaryItem summaryItemWithLabel:@"An Item"
-                                                                         amount:[NSDecimalNumber decimalNumberWithString:@"1.00"]]];
-    request.countryCode = @"US";
-    request.currencyCode = @"USD";
-    request.applicationData = [@"Some random application data" dataUsingEncoding:NSUTF8StringEncoding];
-    request.merchantCapabilities = PKMerchantCapability3DS;
-    request.supportedNetworks = self.supportedNetworks;
+    self.provider = [braintree paymentProviderWithDelegate:self];
     
-    PKPaymentAuthorizationViewController *vc = [[PKPaymentAuthorizationViewController alloc] initWithPaymentRequest:request];
-    vc.delegate = self;
+    self.provider.paymentSummaryItems = @[
+        [PKPaymentSummaryItem summaryItemWithLabel:@"Karl's PayPal Stuff"  amount:[NSDecimalNumber decimalNumberWithString:self.txtAmount.text]]
+    ];
     
-    if (vc) {
-        [self presentViewController:vc animated:YES completion:nil];
-    } else {
-        NSLog(@"Error creating Apple Pay payment");
-    }
-
+    [self.provider createPaymentMethod:BTPaymentProviderTypeApplePay];
+    
 }
 
 - (void)handlePayment {
@@ -100,6 +96,7 @@
     dropInViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                                                           target:self
                                                                                                           action:@selector(userDidCancelPayment)];
+    [dropInViewController setCallToActionText:@"Pay Now"];
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:dropInViewController];
     
@@ -139,12 +136,6 @@
     if ([paymentMethod isKindOfClass:[BTApplePayPaymentMethod class]]) {
         BTApplePayPaymentMethod *applePayPaymentMethod = (BTApplePayPaymentMethod *)paymentMethod;
         [self postNonceToServer:applePayPaymentMethod.nonce];
-        // Send payment information to your server:
-        //   - applePayPaymentMethod.nonce
-        //   - applePayPaymentMethod.shippingAddress
-        //   - applePayPaymentMethod.billingAddress
-        //   - applePayPaymentMethod.shippingMethod
-        // Clean up any UI now that the payment is complete
     }
 }
 
@@ -167,7 +158,7 @@
     else
     {
         vaultStatus = @"no";
-        //TODO Add validation here?
+        //TODO Add text field validation here?
         params = @{@"amount": self.txtAmount.text,
                    @"vault" : vaultStatus,
                    @"payment-method-nonce" : paymentMethodNonce};
@@ -182,7 +173,7 @@
               [self showAlertWithTitle:@"Payment" andMessage:@"Payment Successful"];
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              // Handle failure communicating with your server
+              [self showAlertWithTitle:@"Client Token" andMessage:@"Failed to Retrieve Client Token"];
           }];
 }
 
@@ -202,6 +193,18 @@
              // show alert
              [self showAlertWithTitle:@"Client Token" andMessage:@"Failed to Retrieve Client Token"];
          }];
+}
+
+//close keyboard if view is tapped
+- (void)viewTapped:(UITapGestureRecognizer *)tgr
+{
+    CGRect framer = CGRectMake(0, 0, self.view.frame.size.width , self.view.frame.size.height);
+    [UIView animateWithDuration:0.4f animations:^{
+        self.view.frame = framer;}];
+    [_txtAmount resignFirstResponder];
+    [_txtCustomerId resignFirstResponder];
+    [_txtFirstName resignFirstResponder];
+    [_txtLastName resignFirstResponder];
 }
 
 - (void)hideCustomerText {
@@ -230,51 +233,10 @@
 
 }
 
-#pragma mark PKPaymentAuthorizationViewControllerDelegate
+#pragma mark BTPaymentProvider Methods
 
 
-- (void)paymentAuthorizationViewController:(__unused PKPaymentAuthorizationViewController *)controller didAuthorizePayment:
 
-(PKPayment *)payment completion:(void (^)(PKPaymentAuthorizationStatus))completion {
-    NSLog(@"HERE!!!!!!!!!!!!!!!");
-//    [self.braintree.client saveApplePayPayment:payment
-//                                       success:^(BTApplePayPaymentMethod *applePayPaymentMethod) {
-//                                           NSLog(@"Apple Pay Success! Got a nonce: %@", applePayPaymentMethod.nonce);
-//                                           self.applePayPaymentMethod = applePayPaymentMethod;
-//                                           completion(PKPaymentAuthorizationStatusSuccess);
-//                                       } failure:^(NSError *error) {
-//                                           NSLog(@"Error: %@", error);
-//                                           completion(PKPaymentAuthorizationStatusFailure);
-//                                       }];
-
-    // Tokenize the Apple Pay payment
-    [self.braintree tokenizeApplePayPayment:payment
-                                 completion:^(NSString *nonce, NSError *error) {
-                                     if (error) {
-                                         // Received an error from Braintree.
-                                         // Indicate failure via the completion callback.
-                                         completion(PKPaymentAuthorizationStatusFailure);
-                                         return;
-                                     }
-                                     
-                                     //[NSException raise:@"Not yet implemented" format:@"Send nonce (%@) to your server", nonce];
-                                     
-                                     // On success, send nonce to your server for processing.
-                                     // If applicable, address information is accessible in payment.
-                                     // Then indicate success or failure via the completion callback, e.g.
-                                     //
-                                     
-                                     [self postNonceToServer:nonce];
-                                     
-                                     completion(PKPaymentAuthorizationStatusSuccess);
-                                 }];
-}
-
-- (void)paymentAuthorizationViewControllerDidFinish:(PKPaymentAuthorizationViewController *)controller {
-    [controller dismissViewControllerAnimated:YES completion:^{
-        //self.completionBlock(self.applePayPaymentMethod.nonce);
-    }];
-}
 
 
 @end
