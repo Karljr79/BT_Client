@@ -27,7 +27,7 @@
 			<string>com.karl.Karl_BT_Test</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.karl.Karl_BT_Test.karlbtapp</string>
+				<string>com.karl.Karl-BT-Test.karlbtapp</string>
 			</array>
 		</dict>
 	</array>

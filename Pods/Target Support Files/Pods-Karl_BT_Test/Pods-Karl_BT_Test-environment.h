@@ -48,6 +48,12 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 5
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 1
 
+// AppDynamicsAgent
+#define COCOAPODS_POD_AVAILABLE_AppDynamicsAgent
+#define COCOAPODS_VERSION_MAJOR_AppDynamicsAgent 40
+#define COCOAPODS_VERSION_MINOR_AppDynamicsAgent 7
+#define COCOAPODS_VERSION_PATCH_AppDynamicsAgent 0
+
 // Braintree
 #define COCOAPODS_POD_AVAILABLE_Braintree
 #define COCOAPODS_VERSION_MAJOR_Braintree 3

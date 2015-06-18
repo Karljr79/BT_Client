@@ -21,7 +21,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [Braintree setReturnURLScheme:@"com.karl.Karl_BT_Test.karlbtapp"];
+    [Braintree setReturnURLScheme:@"com.karl.Karl-BT-Test.karlbtapp"];
     
     //init Mixpanel Library
     [Mixpanel sharedInstanceWithToken:MIXPANEL_TOKEN];

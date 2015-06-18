@@ -20,6 +20,7 @@ PODS:
   - AFNetworking/UIKit (2.5.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - AppDynamicsAgent (40.7.0)
   - Braintree (3.7.0):
     - Braintree/API (= 3.7.0)
     - Braintree/Drop-In (= 3.7.0)
@@ -53,12 +54,14 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - AppDynamicsAgent
   - Braintree
   - Braintree/Apple-Pay
   - Mixpanel
 
 SPEC CHECKSUMS:
   AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
+  AppDynamicsAgent: 45ec29c4cce629799f82575d8ebdad666e18b0d0
   Braintree: 5e722c7359ca1c4a2f46562e27a577aeb364b795
   Mixpanel: 1d387d76800e07e953958c62c97fea27f13632dd
 
