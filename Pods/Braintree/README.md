@@ -12,6 +12,10 @@ Next, read the [**full documentation**](https://developers.braintreepayments.com
 
 Finally, [**cocoadocs.org/docsets/Braintree**](http://cocoadocs.org/docsets/Braintree) hosts the complete, up-to-date API documentation generated straight from the header files.
 
+## Demo
+
+A demo app is included in project. To run it, run `pod install` and then open `Braintree.xcworkspace` in Xcode. See the [README](Demos/Braintree-Demo/README.md) for more details.
+
 ### Special note on preprocessor macros
 
 Apple Pay is a build option. To include Apple Pay support in your build, use the `Apple-Pay` subspec in your Podfile:
@@ -38,8 +42,7 @@ Braintree v.zero is in active development. We appreciate the time you take to tr
 Here are a few ways to get in touch:
 
 * [GitHub Issues](https://github.com/braintree/braintree_ios/issues) - For generally applicable issues and feedback
-* support@braintreepayments.com - for personal support at any phase of integration
-* [877.511.5036](tel:+18775115036) - for personal support in real time (Real people answer our phones)
+* [Braintree Support](https://articles.braintreepayments.com/) / support@braintreepayments.com - for personal support at any phase of integration
 
 ### License
 

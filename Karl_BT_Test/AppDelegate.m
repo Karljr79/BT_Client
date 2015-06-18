@@ -7,10 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "Mixpanel.h"
 #import <Braintree/Braintree.h>
-
-#define MIXPANEL_TOKEN @"2ac622cf798c223a9c6f8b749a1209fb"
 
 @interface AppDelegate ()
 
@@ -22,9 +19,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [Braintree setReturnURLScheme:@"com.karl.Karl-BT-Test.karlbtapp"];
-    
-    //init Mixpanel Library
-    [Mixpanel sharedInstanceWithToken:MIXPANEL_TOKEN];
     
     //register for Push
     // Tell iOS you want  your app to receive push
@@ -72,13 +66,6 @@
     
     return [Braintree handleOpenURL:url sourceApplication:sourceApplication];
     
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken: (NSData *)deviceToken
-{
-    Mixpanel *mixpanel = [Mixpanel sharedInstance];
-    [mixpanel identify:@"karljr79"];
-    [mixpanel.people addPushDeviceToken:deviceToken];
 }
 
 @end

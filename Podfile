@@ -5,7 +5,6 @@ target 'Karl_BT_Test' do
 pod 'Braintree'
 pod 'Braintree/Apple-Pay'
 pod 'AFNetworking'
-pod 'Mixpanel'
 pod 'AppDynamicsAgent'
 end
 

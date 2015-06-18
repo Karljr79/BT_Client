@@ -7,6 +7,8 @@
 
 @implementation BTUICardNumberField
 
+@synthesize number = _number;
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -26,6 +28,15 @@
 
 - (BOOL)valid {
     return [self.cardType validNumber:self.number];
+}
+
+- (BOOL)entryComplete {
+    return [super entryComplete] && [self.cardType validAndNecessarilyCompleteNumber:self.number];
+}
+
+- (void)setNumber:(NSString *)number {
+    self.text = number;
+    _number = self.textField.text;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -73,10 +84,6 @@
 
 - (BOOL)isValidCardType {
     return self.cardType != nil || _number.length == 0;
-}
-
-- (BOOL)completedCardNumberValid {
-    return self.cardType != nil && (self.cardType.maxNumberLength < _number.length || self.valid);
 }
 
 - (BOOL)isPotentiallyValid {

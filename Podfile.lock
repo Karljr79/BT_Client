@@ -1,68 +1,71 @@
 PODS:
-  - AFNetworking (2.5.1):
-    - AFNetworking/NSURLConnection (= 2.5.1)
-    - AFNetworking/NSURLSession (= 2.5.1)
-    - AFNetworking/Reachability (= 2.5.1)
-    - AFNetworking/Security (= 2.5.1)
-    - AFNetworking/Serialization (= 2.5.1)
-    - AFNetworking/UIKit (= 2.5.1)
-  - AFNetworking/NSURLConnection (2.5.1):
+  - AFNetworking (2.5.4):
+    - AFNetworking/NSURLConnection (= 2.5.4)
+    - AFNetworking/NSURLSession (= 2.5.4)
+    - AFNetworking/Reachability (= 2.5.4)
+    - AFNetworking/Security (= 2.5.4)
+    - AFNetworking/Serialization (= 2.5.4)
+    - AFNetworking/UIKit (= 2.5.4)
+  - AFNetworking/NSURLConnection (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.1):
+  - AFNetworking/NSURLSession (2.5.4):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.1)
-  - AFNetworking/Security (2.5.1)
-  - AFNetworking/Serialization (2.5.1)
-  - AFNetworking/UIKit (2.5.1):
+  - AFNetworking/Reachability (2.5.4)
+  - AFNetworking/Security (2.5.4)
+  - AFNetworking/Serialization (2.5.4)
+  - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - AppDynamicsAgent (40.7.0)
-  - Braintree (3.7.0):
-    - Braintree/API (= 3.7.0)
-    - Braintree/Drop-In (= 3.7.0)
-    - Braintree/Payments (= 3.7.0)
-    - Braintree/PayPal (= 3.7.0)
-    - Braintree/UI (= 3.7.0)
-    - Braintree/Venmo (= 3.7.0)
-  - Braintree/API (3.7.0)
-  - Braintree/Apple-Pay (3.7.0):
+  - Braintree (3.9.1):
+    - Braintree/API (= 3.9.1)
+    - Braintree/Coinbase (= 3.9.1)
+    - Braintree/Drop-In (= 3.9.1)
+    - Braintree/Payments (= 3.9.1)
+    - Braintree/PayPal (= 3.9.1)
+    - Braintree/UI (= 3.9.1)
+    - Braintree/Venmo (= 3.9.1)
+  - Braintree/API (3.9.1)
+  - Braintree/Apple-Pay (3.9.1):
     - Braintree/Payments
-  - Braintree/Drop-In (3.7.0):
+  - Braintree/Coinbase (3.9.1):
     - Braintree/API
+    - coinbase-official/OAuth (~> 2.1.1)
+  - Braintree/Drop-In (3.9.1):
+    - Braintree/API
+    - Braintree/Coinbase
     - Braintree/Payments
     - Braintree/PayPal
     - Braintree/UI
     - Braintree/Venmo
-  - Braintree/Payments (3.7.0):
+  - Braintree/Payments (3.9.1):
     - Braintree/API
+    - Braintree/Coinbase
     - Braintree/PayPal
     - Braintree/Venmo
-  - Braintree/PayPal (3.7.0):
+  - Braintree/PayPal (3.9.1):
     - Braintree/API
     - Braintree/UI
-  - Braintree/UI (3.7.0):
+  - Braintree/UI (3.9.1):
     - Braintree/API
-  - Braintree/Venmo (3.7.0):
+  - Braintree/Venmo (3.9.1):
     - Braintree/API
-  - Mixpanel (2.7.3):
-    - Mixpanel/MPCategoryHelpers (= 2.7.3)
-  - Mixpanel/MPCategoryHelpers (2.7.3)
+  - coinbase-official/OAuth (2.1.4)
 
 DEPENDENCIES:
   - AFNetworking
   - AppDynamicsAgent
   - Braintree
   - Braintree/Apple-Pay
-  - Mixpanel
 
 SPEC CHECKSUMS:
-  AFNetworking: 10e85a00bb0f475124e4ff2677bf15693b2c1523
+  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   AppDynamicsAgent: 45ec29c4cce629799f82575d8ebdad666e18b0d0
-  Braintree: 5e722c7359ca1c4a2f46562e27a577aeb364b795
-  Mixpanel: 1d387d76800e07e953958c62c97fea27f13632dd
+  Braintree: 1796b67efcf832019d1da1b8a1d779e202e3796f
+  coinbase-official: 4ad3ac862840657b4184345eb84af8166ab2b04e
 
 COCOAPODS: 0.35.0

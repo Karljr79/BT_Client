@@ -271,7 +271,7 @@ const CGFloat formFieldBottomMargin = 11;
     [self updateFloatLabelTextColor];
 }
 
-#pragma mark - BTUITextFieldEditDelegate methods
+#pragma mark - UITextFieldDelegate methods
 
 - (void)textFieldDidBeginEditing:(__unused UITextField *)textField {
     [self updateFloatLabelTextColor];
@@ -281,11 +281,14 @@ const CGFloat formFieldBottomMargin = 11;
     [self updateFloatLabelTextColor];
 }
 
+#pragma mark - BTUITextFieldEditDelegate methods
+
 - (void)textFieldWillDeleteBackward:(__unused BTUITextField *)textField {
     _backspace = YES;
+
 }
 
-- (void)textFieldDidDeleteBackward:(__unused BTUITextField *)textField originalText:(NSString *)originalText {
+- (void)textFieldDidDeleteBackward:(BTUITextField *)textField originalText:(__unused NSString *)originalText {
     if (originalText.length == 0) {
         [self.delegate formFieldDidDeleteWhileEmpty:self];
     }
@@ -296,11 +299,13 @@ const CGFloat formFieldBottomMargin = 11;
 }
 
 - (void)textField:(__unused BTUITextField *)textField willInsertText:(__unused NSString *)text {
-    if (textField.text.length == 0 && text.length > 0) {
+    _backspace = NO;
+}
+
+- (void)textField:(BTUITextField *)textField didInsertText:(__unused NSString *)text {
+    if (textField.text.length > 0) {
         [self.floatLabel showWithAnimation:YES];
     }
-
-    _backspace = NO;
 }
 
 - (void)setAccessoryHighlighted:(BOOL)highlight {
@@ -316,6 +321,27 @@ const CGFloat formFieldBottomMargin = 11;
             [invocation invoke];
         }
     }
+}
+
+#pragma mark - Custom accessors
+
+- (void)setText:(NSString *)text {
+    BOOL shouldChange = [self.textField.delegate textField:self.textField
+                             shouldChangeCharactersInRange:NSMakeRange(0, self.textField.text.length)
+                                         replacementString:text];
+    if (shouldChange) {
+        [self.textField.delegate textFieldDidBeginEditing:self.textField];
+        [self.textField.editDelegate textField:self.textField willInsertText:text];
+        self.textField.text = text;
+        [self fieldContentDidChange];
+        [self.textField.editDelegate textField:self.textField didInsertText:text];
+        [self.textField.delegate textFieldDidEndEditing:self.textField];
+
+    }
+}
+
+- (NSString *)text {
+    return self.textField.text;
 }
 
 #pragma mark - Delegate methods and handlers
@@ -348,6 +374,20 @@ const CGFloat formFieldBottomMargin = 11;
 
 - (void)tappedField {
     [self.textField becomeFirstResponder];
+}
+
+#pragma mark UIKeyInput
+
+- (void)insertText:(NSString *)text {
+    [self.textField insertText:text];
+}
+
+- (void)deleteBackward {
+    [self.textField deleteBackward];
+}
+
+- (BOOL)hasText {
+    return [self.textField hasText];
 }
 
 @end

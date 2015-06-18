@@ -21,11 +21,31 @@ typedef NS_ENUM(NSUInteger, BTUICardFormField) {
 @property (nonatomic, weak) IBOutlet id<BTUICardFormViewDelegate> delegate;
 
 @property (nonatomic, assign, readonly) BOOL valid;
-@property (nonatomic, copy, readonly) NSString *number;
-@property (nonatomic, copy, readonly) NSString *cvv;
+
+/// The card number.
+///
+/// If you set a card number longer than is allowed by the card type,
+/// it will not be set.
+@property (nonatomic, copy) NSString *number;
+
+/// The card CVV
+///
+/// @note this field is only visible when specified in `optionalFields`
+@property (nonatomic, copy) NSString *cvv;
+
+/// The card billing address postal code for AVS verifications
+///
+/// @note this field is only visible when specified in `optionalFields`
+@property (nonatomic, copy) NSString *postalCode;
+
 @property (nonatomic, copy, readonly) NSString *expirationMonth;
 @property (nonatomic, copy, readonly) NSString *expirationYear;
-@property (nonatomic, copy, readonly) NSString *postalCode;
+
+/// Sets the card form view's expiration date
+///
+/// @param expirationDate The expiration date. Passing in `nil` will clear the
+/// card form's expiry field.
+- (void)setExpirationDate:(NSDate *)expirationDate;
 
 /// Immediately present a top level error message to the user.
 ///

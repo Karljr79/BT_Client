@@ -10,7 +10,7 @@
         localizationBundlePath = [[NSBundle bundleForClass:[self class]] pathForResource:bundleName ofType:@"bundle"];
     }
     
-    return [NSBundle bundleWithPath:localizationBundlePath];
+    return localizationBundlePath ? [NSBundle bundleWithPath:localizationBundlePath] : [NSBundle mainBundle];
 }
 
 + (NSString *)localizationTable {
@@ -90,7 +90,11 @@
 }
 
 + (NSString *)PAYMENT_METHOD_TYPE_PAYPAL {
-    return NSLocalizedStringWithDefaultValue(@"PAYPAL", [self localizationTable], [self localizationBundle], @"PayPal", @"PayPal (as a standalone term, referring to the payment method type, analogous to Visa or Discover");
+    return NSLocalizedStringWithDefaultValue(@"PAYPAL", [self localizationTable], [self localizationBundle], @"PayPal", @"PayPal (as a standalone term, referring to the payment method type, analogous to Visa or Discover)");
+}
+
++ (NSString *)PAYMENT_METHOD_TYPE_COINBASE {
+    return NSLocalizedStringWithDefaultValue(@"COINBASE", [self localizationTable], [self localizationBundle], @"Coinbase", @"Coinbase (as a standalone term, referring to the bitcoin wallet company)");
 }
 
 @end

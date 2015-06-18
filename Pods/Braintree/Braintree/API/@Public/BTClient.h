@@ -4,11 +4,17 @@
 #import "BTPayPalPaymentMethod.h"
 
 #import "BTApplePayPaymentMethod.h"
+#import "BTCoinbasePaymentMethod.h"
 
 #import "BTErrors.h"
 #import "BTClientCardRequest.h"
 
+@class BTClient, BTCoinbasePaymentMethod;
+
 #pragma mark Types
+
+/// Block type that takes a `BTClient` or an error
+typedef void (^BTClientCompletionBlock)(BTClient *client, NSError *error);
 
 /// Block type that takes an `NSArray` of `BTPaymentMethod`s
 typedef void (^BTClientPaymentMethodListSuccessBlock)(NSArray *paymentMethods);
@@ -26,6 +32,9 @@ typedef void (^BTClientApplePaySuccessBlock)(BTApplePayPaymentMethod *applePayPa
 
 /// Success Block type for the Save Paypal call
 typedef void (^BTClientPaypalSuccessBlock)(BTPayPalPaymentMethod *paypalPaymentMethod);
+
+/// Success Block type for the Save Coinbase call
+typedef void (^BTClientCoinbaseSuccessBlock)(BTCoinbasePaymentMethod *coinbasePaymentMethod);
 
 /// Success Block type for analytics events
 typedef void (^BTClientAnalyticsSuccessBlock)(void);
@@ -52,6 +61,10 @@ typedef void (^BTClientFailureBlock)(NSError *error);
 /// The public Braintree Merchant ID for which this client
 /// was initialized.
 @property (nonatomic, copy, readonly) NSString *merchantId;
+
+/// A set of strings denoting additional scopes to use when authorizing a PayPal account.
+/// See PayPalOAuthScopes.h for a list of available scopes.
+@property (nonatomic, copy) NSSet *additionalPayPalScopes;
 
 #pragma mark - Fetch a Payment Method
 
@@ -131,6 +144,18 @@ typedef void (^BTClientFailureBlock)(NSError *error);
                               correlationId:(NSString *)correlationId
                                     success:(BTClientPaypalSuccessBlock)successBlock
                                     failure:(BTClientFailureBlock)failureBlock DEPRECATED_ATTRIBUTE;
+
+#pragma mark - Coinbase
+
+/// Save a Coinbase payment method to Braintree (beta)
+///
+/// @param coinbaseAuthResponse A Coinbase authorization response of type NSDictionary
+/// @param successBlock success callback for handling the resulting new Coinbase account payment method
+/// @param failureBlock failure callback for handling errors
+- (void)saveCoinbaseAccount:(id)coinbaseAuthResponse
+               storeInVault:(BOOL)storeInVault
+                    success:(BTClientCoinbaseSuccessBlock)successBlock
+                    failure:(BTClientFailureBlock)failureBlock;
 
 #pragma mark Create a Braintree Analytics Event
 
