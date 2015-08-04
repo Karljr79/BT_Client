@@ -10,7 +10,6 @@
 #import "Constants.h"
 #import <Braintree/Braintree.h>
 #import <AFNetworking/AFNetworking.h>
-#import "Mixpanel.h"
 
 
 @interface PaymentViewController () <BTPaymentMethodCreationDelegate>

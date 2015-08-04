@@ -20,41 +20,39 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AppDynamicsAgent (40.7.0)
-  - Braintree (3.9.1):
-    - Braintree/API (= 3.9.1)
-    - Braintree/Coinbase (= 3.9.1)
-    - Braintree/Drop-In (= 3.9.1)
-    - Braintree/Payments (= 3.9.1)
-    - Braintree/PayPal (= 3.9.1)
-    - Braintree/UI (= 3.9.1)
-    - Braintree/Venmo (= 3.9.1)
-  - Braintree/API (3.9.1)
-  - Braintree/Apple-Pay (3.9.1):
+  - AppDynamicsAgent (41.0.0)
+  - Braintree (3.9.2):
+    - Braintree/API (= 3.9.2)
+    - Braintree/Coinbase (= 3.9.2)
+    - Braintree/Drop-In (= 3.9.2)
+    - Braintree/Payments (= 3.9.2)
+    - Braintree/PayPal (= 3.9.2)
+    - Braintree/UI (= 3.9.2)
+    - Braintree/Venmo (= 3.9.2)
+  - Braintree/API (3.9.2)
+  - Braintree/Apple-Pay (3.9.2):
     - Braintree/Payments
-  - Braintree/Coinbase (3.9.1):
+  - Braintree/Coinbase (3.9.2):
     - Braintree/API
-    - coinbase-official/OAuth (~> 2.1.1)
-  - Braintree/Drop-In (3.9.1):
+  - Braintree/Drop-In (3.9.2):
     - Braintree/API
     - Braintree/Coinbase
     - Braintree/Payments
     - Braintree/PayPal
     - Braintree/UI
     - Braintree/Venmo
-  - Braintree/Payments (3.9.1):
+  - Braintree/Payments (3.9.2):
     - Braintree/API
     - Braintree/Coinbase
     - Braintree/PayPal
     - Braintree/Venmo
-  - Braintree/PayPal (3.9.1):
+  - Braintree/PayPal (3.9.2):
     - Braintree/API
     - Braintree/UI
-  - Braintree/UI (3.9.1):
+  - Braintree/UI (3.9.2):
     - Braintree/API
-  - Braintree/Venmo (3.9.1):
+  - Braintree/Venmo (3.9.2):
     - Braintree/API
-  - coinbase-official/OAuth (2.1.4)
 
 DEPENDENCIES:
   - AFNetworking
@@ -64,8 +62,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
-  AppDynamicsAgent: 45ec29c4cce629799f82575d8ebdad666e18b0d0
-  Braintree: 1796b67efcf832019d1da1b8a1d779e202e3796f
-  coinbase-official: 4ad3ac862840657b4184345eb84af8166ab2b04e
+  AppDynamicsAgent: 511d0057f7b89c77392d9233a3060ea1b061e2b0
+  Braintree: 7df7050fd35c19a7e81409b15efe0320b980b3d4
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.38.2

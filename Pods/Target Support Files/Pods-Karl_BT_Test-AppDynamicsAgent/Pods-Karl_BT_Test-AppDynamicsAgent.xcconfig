@@ -1,2 +1,0 @@
-PODS_KARL_BT_TEST_APPDYNAMICSAGENT_FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/AppDynamicsAgent/iOSAgent-4.0.7.0"
-PODS_KARL_BT_TEST_APPDYNAMICSAGENT_OTHER_LDFLAGS = -l"sqlite3" -l"z" -framework "ADEUMInstrumentation" -framework "CoreTelephony" -framework "SystemConfiguration"

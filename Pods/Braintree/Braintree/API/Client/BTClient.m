@@ -1,4 +1,4 @@
-@import PassKit;
+#import <PassKit/PassKit.h>
 
 #import "BTClient_Internal.h"
 #import "BTClientToken.h"
@@ -446,7 +446,7 @@
                                                        @"authorization_fingerprint": self.clientToken.authorizationFingerprint
                                                        }];
 
-        [[BTLogger sharedLogger] debug:@"BTClient postAnalyticsEvent:%@", eventKind];
+        [[BTLogger sharedLogger] debug:@"BTClient postAnalyticsEvent:%@ session:%@", eventKind, self.metadata.sessionId];
 
         [self.analyticsHttp POST:@"/"
                       parameters:requestParameters
@@ -598,6 +598,7 @@
     NSMutableDictionary *mutableMetaValue = [metaValue mutableCopy];
     mutableMetaValue[@"integration"] = self.metadata.integrationString;
     mutableMetaValue[@"source"] = self.metadata.sourceString;
+    mutableMetaValue[@"sessionId"] = self.metadata.sessionId;
 
     result[@"_meta"] = mutableMetaValue;
     return result;

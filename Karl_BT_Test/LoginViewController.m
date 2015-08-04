@@ -9,7 +9,6 @@
 #import "LoginViewController.h"
 #import "Constants.h"
 #import <AFNetworking/AFNetworking.h>
-#import "Mixpanel.h"
 
 @implementation LoginViewController
 
@@ -36,9 +35,6 @@
              NSLog(@"Successfully logged in to merchant ID: %@", self.txtMerchantID.text);
              //enable next button
              [[self.navigationItem rightBarButtonItem] setEnabled:YES];
-             
-             //track Mixpanel Event
-             
              
              //transition to purchase screens
              [self performSegueWithIdentifier:@"postLogin" sender:self];

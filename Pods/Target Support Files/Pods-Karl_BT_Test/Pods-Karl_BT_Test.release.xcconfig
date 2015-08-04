@@ -1,8 +1,7 @@
-FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/AppDynamicsAgent/iOSAgent-4.0.7.0"
+FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/AppDynamicsAgent/iOSAgent-4.1.0.0"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 BT_ENABLE_APPLE_PAY=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AppDynamicsAgent" "${PODS_ROOT}/Headers/Public/Braintree" "${PODS_ROOT}/Headers/Public/coinbase-official"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/AppDynamicsAgent" "${PODS_ROOT}/Headers/Public/AppDynamicsAgent/ADEUMInstrumentation" "${PODS_ROOT}/Headers/Public/Braintree"
 LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/Braintree/Braintree/PayPal/mSDK"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/AppDynamicsAgent" -isystem "${PODS_ROOT}/Headers/Public/Braintree" -isystem "${PODS_ROOT}/Headers/Public/coinbase-official"
-OTHER_LDFLAGS = -ObjC -l"PayPalMobile-BT" -l"Pods-Karl_BT_Test-AFNetworking" -l"Pods-Karl_BT_Test-AppDynamicsAgent" -l"Pods-Karl_BT_Test-Braintree" -l"Pods-Karl_BT_Test-coinbase-official" -l"c++" -l"sqlite3" -l"z" -framework "ADEUMInstrumentation" -framework "AVFoundation" -framework "AddressBook" -framework "AudioToolbox" -framework "CoreGraphics" -framework "CoreLocation" -framework "CoreMedia" -framework "CoreTelephony" -framework "MessageUI" -framework "MobileCoreServices" -framework "PassKit" -framework "Security" -framework "SystemConfiguration" -framework "UIKit" -weak_framework "PassKit"
-OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AFNetworking" -isystem "${PODS_ROOT}/Headers/Public/AppDynamicsAgent" -isystem "${PODS_ROOT}/Headers/Public/AppDynamicsAgent/ADEUMInstrumentation" -isystem "${PODS_ROOT}/Headers/Public/Braintree"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"AFNetworking" -l"Braintree" -l"PayPalMobile-BT" -l"c++" -l"sqlite3" -l"z" -framework "ADEUMInstrumentation" -framework "AVFoundation" -framework "Accelerate" -framework "AddressBook" -framework "AudioToolbox" -framework "CoreGraphics" -framework "CoreLocation" -framework "CoreMedia" -framework "CoreTelephony" -framework "MessageUI" -framework "MobileCoreServices" -framework "PassKit" -framework "Security" -framework "SystemConfiguration" -framework "UIKit" -weak_framework "PassKit"
 PODS_ROOT = ${SRCROOT}/Pods
